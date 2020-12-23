@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const parser = require('body-parser');
 
+const PORT = process.env.PORT || 80
+
 let dimensions = {
   length: 1,
   width: 1,
@@ -9,6 +11,10 @@ let dimensions = {
 }
 
 app.use(parser.json());
+
+app.get('/', (req, res) => {
+  res.end('<h1>WebGl REST api</h1>');
+});
 
 app.get('/vectors', (req, res) => {
   return res.status(200).send({
@@ -27,8 +33,8 @@ app.post('/setSizes', (req, res) => {
   res.send('Dimensions is set');
 });
 
-app.listen(8000, () => {
-  console.log('App listening on port 8000!')
+app.listen(PORT, () => {
+  console.log('App has been started...')
 });
 
 function geometryFromSize(length = 1, width = 1, height = 1) {
